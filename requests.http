@@ -1,0 +1,55 @@
+@baseUrl = http://localhost:3000
+@createdId = replace-with-id-from-post-response
+
+### 1. Отримати всі курси
+GET {{baseUrl}}/courses
+
+### 2. Пошук за назвою (без урахування регістру)
+GET {{baseUrl}}/courses?search=typescript
+
+### 3. Обмежити кількість результатів
+GET {{baseUrl}}/courses?limit=2
+
+### 4. Пошук разом з обмеженням кількості
+GET {{baseUrl}}/courses?search=розробки&limit=1
+
+### 5. Отримати курс за ID
+GET {{baseUrl}}/courses/1
+
+### 6. Перевірка 404 Not Found
+GET {{baseUrl}}/courses/99999
+
+### 7. Створити курс (очікується 201 Created)
+POST {{baseUrl}}/courses
+Content-Type: application/json
+
+{
+  "title": "NestJS: практичний курс",
+  "price": 2100,
+  "durationHours": 36,
+  "difficultyLevel": "intermediate",
+  "instructor": "Іван Петренко"
+}
+
+### Оновлення курсу
+PATCH http://localhost:3000/courses/b37d1105-fd8f-4bc9-9842-6f18a9e0e8c1
+Content-Type: application/json
+
+{
+  "price": 2500
+}
+### Видалення курсу
+DELETE http://localhost:3000/courses/b37d1105-fd8f-4bc9-9842-6f18a9e0e8c1
+### Перевірка видаленого курсу
+GET http://localhost:3000/courses/b37d1105-fd8f-4bc9-9842-6f18a9e0e8c1
+### Перевірка валідації
+POST http://localhost:3000/courses
+Content-Type: application/json
+
+{
+  "title": "A",
+  "price": -100,
+  "durationHours": 30,
+  "difficultyLevel": "unknown",
+  "instructor": "Іван Петренко"
+}
